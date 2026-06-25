@@ -125,8 +125,11 @@ h1{
   font-size:1.6rem;
   text-align:center;
 }
-.sections{background:#0e0906}
-.food-section{scroll-margin-top:10px}
+.sections{
+  background:#0e0906;
+  overflow:visible;
+}
+.food-section{scroll-margin-top:72px}
 .section-top{
   position:relative;
   min-height:245px;
@@ -148,15 +151,19 @@ h1{
 .nav{
   display:flex;
   gap:9px;
-  flex-wrap:wrap;
   padding:12px;
   background:rgba(10,7,5,.96);
   border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
 }
 .section-nav{
   position:sticky;
   top:0;
-  z-index:3;
+  z-index:20;
+  overflow:auto;
+  flex-wrap:nowrap;
+  -webkit-overflow-scrolling:touch;
+  box-shadow:0 14px 28px rgba(0,0,0,.32);
 }
 .nav a{
   font:850 .82rem/1 system-ui,-apple-system,Segoe UI,Arial,sans-serif;
@@ -167,6 +174,7 @@ h1{
   border-radius:999px;
   background:#24160f;
   touch-action:manipulation;
+  white-space:nowrap;
 }
 .nav a.home{
   background:var(--gold);
@@ -205,12 +213,19 @@ h2{
   position:relative;
   background:#000;
   overflow:hidden;
+  text-decoration:none;
+  cursor:pointer;
 }
 .photo img{
   display:block;
   width:100%;
   aspect-ratio:4/3;
   object-fit:cover;
+  transition:transform .18s ease, filter .18s ease;
+}
+.photo:active img{
+  transform:scale(.985);
+  filter:brightness(.9);
 }
 .badge{
   position:absolute;
@@ -224,6 +239,7 @@ h2{
   font:950 .62rem/1 system-ui,-apple-system,Segoe UI,Arial,sans-serif;
   text-transform:uppercase;
   letter-spacing:.06em;
+  pointer-events:none;
 }
 .badge.normal{
   background:#4a3424;
@@ -306,12 +322,6 @@ h2{
   }
   .menu-card strong{font-size:1.08rem}
   .menu-card span{font-size:.74rem}
-  .section-nav{
-    overflow:auto;
-    flex-wrap:nowrap;
-    -webkit-overflow-scrolling:touch;
-  }
-  .section-nav a{white-space:nowrap}
   .section-top{min-height:35vh}
   .grid{
     grid-template-columns:1fr;
