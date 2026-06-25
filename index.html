@@ -20,7 +20,6 @@
 <script>
 let img=(q,n)=>'';
 const imageSearch=name=>`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(name+' Vienna Austrian food')}`;
-const sp=name=>`https://commons.wikimedia.org/wiki/Special:FilePath/${name}`;
 const wiki={
   schnitzel:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Wiener_Schnitzel%21.jpg/960px-Wiener_Schnitzel%21.jpg',
   tafelspitz:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Tafelspitz.jpg/960px-Tafelspitz.jpg',
@@ -39,9 +38,9 @@ const wiki={
   einspanner:'https://upload.wikimedia.org/wikipedia/commons/1/1e/Einspaenner.jpg',
   almdudler:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Almdudler_bottle_and_glass.jpg/960px-Almdudler_bottle_and_glass.jpg',
   juice:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Apfelsaft_im_Glas.jpg/960px-Apfelsaft_im_Glas.jpg',
-  holunder:sp('Elderflower_cordial.jpg'),
-  sodaZitron:sp('Soda_water_with_lemon.jpg'),
-  himbeer:sp('Raspberry_syrup.jpg'),
+  holunder:'https://www.genusskind.at/wp-content/uploads/2021/06/holundersirup5-853x1280.jpg',
+  sodaZitron:'https://www.buzzfeed.at/assets/images/34/689/34689524-soda-zitron-1W7a.jpg',
+  himbeer:'https://cdn.supermarkt.at/media/products/66522/conversions/silberquelle-himbeerkracherl-main.jpg',
   wine:'https://upload.wikimedia.org/wikipedia/commons/3/35/GruenerVeltlinerWeissenkirchen.jpg',
   spritzer:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Sommerspritzer.jpg/960px-Sommerspritzer.jpg',
   sturm:'https://upload.wikimedia.org/wikipedia/commons/3/3a/Federweisser_im_Glas_%28Baden_2007%29.jpg',
@@ -52,9 +51,9 @@ const wiki={
   pal:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Palatschinken_in_Wien_2.JPG/960px-Palatschinken_in_Wien_2.JPG',
   apricotDumpling:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Heuriger_Zum_Renner_Marillenkn%C3%B6del.jpg/960px-Heuriger_Zum_Renner_Marillenkn%C3%B6del.jpg',
   manner:'https://upload.wikimedia.org/wikipedia/commons/1/1f/Manner_Neapolitaner_%28Swiss_Chocolate_Wafers%29.jpg',
-  punsch:sp('Punschkrapfen.jpg'),
-  buchteln:sp('Buchteln.jpg'),
-  germ:sp('Germkn%C3%B6del.jpg'),
+  punsch:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Punschkrapfen.jpg/960px-Punschkrapfen.jpg',
+  buchteln:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Buchteln.jpg/960px-Buchteln.jpg',
+  germ:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/2015_0720_Germkn%C3%B6del_Vanilleso%C3%9Fe_S%C3%B6lden.jpg/960px-2015_0720_Germkn%C3%B6del_Vanilleso%C3%9Fe_S%C3%B6lden.jpg',
   liptauer:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Liptauer_on_bread_in_Austria.jpg/960px-Liptauer_on_bread_in_Austria.jpg',
   board:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Brettljause_7622.JPG/960px-Brettljause_7622.JPG',
   leber:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Leberkaesesemmel.jpg/960px-Leberkaesesemmel.jpg'
@@ -111,6 +110,7 @@ const sections=[
     ['Leberkäsesemmel','NORMAL','Meatloaf-style quick bite from bakeries and counters.','Warm slice in a roll with mustard, salty, cheap, and normal.',img('',1603)]
   ]}
 ];
+const fallbackByName={'Holundersaft gespritzt':wiki.almdudler,'Soda Zitron':wiki.juice,'Himbeerkracherl':wiki.almdudler,'Punschkrapfen':wiki.sacher,'Buchteln':wiki.kaiser,'Germknödel':wiki.kaiser};
 const badgeClass=b=>b==='NORMAL'?'normal':b.includes('SEASONAL')?'seasonal':'';
 const nav=()=>`<nav class="nav fixed-nav" aria-label="Section navigation"><a class="home" href="#top">Menu</a>${sections.map(s=>`<a href="#${s.id}">${s.title}</a>`).join('')}</nav>`;
 const card=i=>`<article class="food"><a class="photo" href="${imageSearch(i[0])}" target="_blank" rel="noopener" aria-label="Search Google Images for ${i[0]}"><img src="${i[4]}" alt="${i[0]}" loading="lazy"><span class="badge ${badgeClass(i[1])}">${i[1]}</span></a><div class="copy"><h3>${i[0]}</h3><div class="label">Story</div><p>${i[2]}</p><div class="label">What it is</div><p>${i[3]}</p></div></article>`;
@@ -118,6 +118,7 @@ document.body.insertAdjacentHTML('afterbegin',nav());
 document.getElementById('coverArt').style.backgroundImage=`url('${sections[0].hero}')`;
 document.getElementById('menu').innerHTML=sections.map(s=>`<a class="menu-card" href="#${s.id}" aria-label="Open ${s.title} section"><img src="${s.hero}" alt=""><div><small>${s.deck}</small><strong>${s.title}</strong><span>${s.items.length} items</span></div><b aria-hidden="true">›</b></a>`).join('');
 document.getElementById('sections').innerHTML=sections.map(s=>`<section class="food-section" id="${s.id}"><div class="section-top" style="background-image:url('${s.hero}')"><div><div class="eyebrow">Vienna food guide</div><h2>${s.title}</h2><p class="deck">${s.deck}</p></div></div><div class="grid">${s.items.map(card).join('')}</div></section>`).join('')+`<footer class="footer"><a class="more" href="#top">Back to menu</a></footer>`;
+document.querySelectorAll('.photo img').forEach(el=>el.addEventListener('error',()=>{if(!el.dataset.failed){el.dataset.failed='1';el.src=fallbackByName[el.alt]||wiki.schnitzel;}}));
 let currentActive='';
 function updateActiveNav(){
   let active='top';
