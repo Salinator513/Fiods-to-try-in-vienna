@@ -18,8 +18,7 @@
   </div>
 
 <script>
-const L='https://loremflickr.com/1200/900/';
-const img=(q,n)=>`${L}${q}?lock=${n}`;
+let img=(q,n)=>'';
 const imageSearch=name=>`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(name+' Vienna Austrian food')}`;
 const wiki={
   schnitzel:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Wiener_Schnitzel%21.jpg/960px-Wiener_Schnitzel%21.jpg',
@@ -53,57 +52,59 @@ const wiki={
   board:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Brettljause_7622.JPG/960px-Brettljause_7622.JPG',
   leber:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Leberkaesesemmel.jpg/960px-Leberkaesesemmel.jpg'
 };
+const exact={1001:wiki.schnitzel,1010:wiki.breakfast,1020:wiki.melange,1030:wiki.spritzer,1040:wiki.sacher,1050:wiki.board,1101:wiki.schnitzel,1102:wiki.tafelspitz,1103:wiki.fiaker,1104:wiki.backhendl,1105:wiki.zwiebel,1106:wiki.spaetzle,1107:wiki.krainer,1108:wiki.soup,1109:wiki.liver,1201:wiki.breakfast,1202:wiki.semmel,1203:wiki.kipferl,1204:wiki.topfen,1301:wiki.melange,1302:wiki.einspanner,1303:wiki.almdudler,1304:wiki.juice,1401:wiki.wine,1402:wiki.spritzer,1403:wiki.sturm,1404:wiki.apricotDrink,1501:wiki.sacher,1502:wiki.strudel,1503:wiki.kaiser,1504:wiki.pal,1505:wiki.apricotDumpling,1506:wiki.manner,1601:wiki.liptauer,1602:wiki.board,1603:wiki.leber};
+img=(q,n)=>exact[n]||wiki.schnitzel;
 const sections=[
-  {id:'lunch-dinner',title:'Lunch & Dinner',deck:'Cutlets, soups, stews, sausages',hero:img('wiener,schnitzel,restaurant,food',1001),fallback:wiki.schnitzel,items:[
-    ['Wiener Schnitzel','MUST TRY','Vienna’s signature breaded cutlet and the safest first classic.','Thin, crisp, lemony cutlet, usually with potato salad.',img('crispy,schnitzel,lemon,restaurant',1101),wiki.schnitzel],
-    ['Tafelspitz','MUST TRY','Imperial-era boiled beef tied to classic Viennese Gasthaus culture.','Tender sliced beef in broth with apple horseradish and chive sauce.',img('beef,broth,potatoes,restaurant',1102),wiki.tafelspitz],
-    ['Fiakergulasch','MUST TRY','Named for Vienna carriage drivers; strong tavern comfort food.','Paprika beef stew with sausage, fried egg, pickle, and dumplings.',img('goulash,stew,beef,restaurant',1103),wiki.fiaker],
-    ['Backhendl','NORMAL','Old Viennese tavern fried chicken; familiar but local enough.','Crispy breaded chicken with lemon and potato salad.',img('fried,chicken,lemon,restaurant',1104),wiki.backhendl],
-    ['Zwiebelrostbraten','NORMAL','Austrian beef-and-onion staple in traditional restaurants.','Seared beef with dark onion gravy and crispy onions.',img('roast,beef,onion,restaurant',1105),wiki.zwiebel],
-    ['Käsespätzle','MUST TRY','Alpine cheese-noodle comfort food and very satisfying.','Soft egg noodles melted into cheese with crispy onions.',img('cheese,noodles,skillet,restaurant',1106),wiki.spaetzle],
-    ['Käsekrainer','MUST TRY','Cheese sausage central to Vienna Würstelstand street-food culture.','Smoky sausage with molten cheese pockets, mustard, and bread.',img('sausage,cheese,street,food',1107),wiki.krainer],
-    ['Frittatensuppe','NORMAL','Classic Austrian starter before a bigger meal.','Clear broth with thin sliced pancake strips.',img('soup,broth,pancake,restaurant',1108),wiki.soup],
-    ['Leberknödelsuppe','NORMAL','Traditional soup, but more intense than the safest options.','Clear broth with one large savory liver dumpling.',img('dumpling,soup,broth,restaurant',1109),wiki.liver]
+  {id:'lunch-dinner',title:'Lunch & Dinner',deck:'Cutlets, soups, stews, sausages',hero:img('',1001),items:[
+    ['Wiener Schnitzel','MUST TRY','Vienna’s signature breaded cutlet and the safest first classic.','Thin, crisp, lemony cutlet, usually with potato salad.',img('',1101)],
+    ['Tafelspitz','MUST TRY','Imperial-era boiled beef tied to classic Viennese Gasthaus culture.','Tender sliced beef in broth with apple horseradish and chive sauce.',img('',1102)],
+    ['Fiakergulasch','MUST TRY','Named for Vienna carriage drivers; strong tavern comfort food.','Paprika beef stew with sausage, fried egg, pickle, and dumplings.',img('',1103)],
+    ['Backhendl','NORMAL','Old Viennese tavern fried chicken; familiar but local enough.','Crispy breaded chicken with lemon and potato salad.',img('',1104)],
+    ['Zwiebelrostbraten','NORMAL','Austrian beef-and-onion staple in traditional restaurants.','Seared beef with dark onion gravy and crispy onions.',img('',1105)],
+    ['Käsespätzle','MUST TRY','Alpine cheese-noodle comfort food and very satisfying.','Soft egg noodles melted into cheese with crispy onions.',img('',1106)],
+    ['Käsekrainer','MUST TRY','Cheese sausage central to Vienna Würstelstand street-food culture.','Smoky sausage with molten cheese pockets, mustard, and bread.',img('',1107)],
+    ['Frittatensuppe','NORMAL','Classic Austrian starter before a bigger meal.','Clear broth with thin sliced pancake strips.',img('',1108)],
+    ['Leberknödelsuppe','NORMAL','Traditional soup, but more intense than the safest options.','Clear broth with one large savory liver dumpling.',img('',1109)]
   ]},
-  {id:'breakfast',title:'Breakfast',deck:'Coffeehouse morning staples',hero:img('cafe,breakfast,coffee,pastry',1010),fallback:wiki.breakfast,items:[
-    ['Viennese Breakfast','MUST TRY','Coffeehouse breakfast is a normal Vienna café ritual.','Roll, butter, jam, egg, coffee, and slow café time.',img('cafe,breakfast,coffee,pastry',1201),wiki.breakfast],
-    ['Semmel / Kaisersemmel','NORMAL','Star-shaped Austrian bread roll; the everyday breakfast baseline.','Crisp outside, soft inside, eaten with butter, jam, ham, or cheese.',img('bread,roll,bakery,butter',1202),wiki.semmel],
-    ['Kipferl','NORMAL','Crescent pastry from Central European baking tradition.','Buttery or sweet crescent, lighter than a full dessert.',img('crescent,pastry,cafe,bakery',1203),wiki.kipferl],
-    ['Topfengolatsche','NORMAL','Viennese/Central European pastry with quark cheese filling.','Square folded pastry with a sweet, tangy cheese center.',img('cheese,pastry,bakery,cafe',1204),wiki.topfen]
+  {id:'breakfast',title:'Breakfast',deck:'Coffeehouse morning staples',hero:img('',1010),items:[
+    ['Viennese Breakfast','MUST TRY','Coffeehouse breakfast is a normal Vienna café ritual.','Roll, butter, jam, egg, coffee, and slow café time.',img('',1201)],
+    ['Semmel / Kaisersemmel','NORMAL','Star-shaped Austrian bread roll; the everyday breakfast baseline.','Crisp outside, soft inside, eaten with butter, jam, ham, or cheese.',img('',1202)],
+    ['Kipferl','NORMAL','Crescent pastry from Central European baking tradition.','Buttery or sweet crescent, lighter than a full dessert.',img('',1203)],
+    ['Topfengolatsche','NORMAL','Viennese/Central European pastry with quark cheese filling.','Square folded pastry with a sweet, tangy cheese center.',img('',1204)]
   ]},
-  {id:'non-alcoholic',title:'Non‑Alcoholic Drinks',deck:'Coffee, soda, and spritzed juice',hero:img('viennese,coffee,cafe,foam',1020),fallback:wiki.melange,items:[
-    ['Wiener Melange','MUST TRY','Classic Vienna coffeehouse order; close to cappuccino and iconic.','Mild creamy coffee with steamed milk and foam.',img('coffee,latte,cafe,foam',1301),wiki.melange],
-    ['Einspänner','MUST TRY','Named for carriage drivers; cream helped keep the coffee warm.','Black coffee topped with whipped cream, served in a glass.',img('coffee,whipped,cream,cafe',1302),wiki.einspanner],
-    ['Almdudler','NORMAL','Austrian herbal soda with strong national recognition.','Sweet, fizzy, herbal; like ginger ale meets elderflower.',img('herbal,soda,drink,glass',1303),wiki.almdudler],
-    ['Apfelsaft gespritzt','NORMAL','Spritzed juice is a normal Austrian everyday drink.','Apple juice cut with sparkling water; refreshing and less sweet.',img('apple,juice,sparkling,glass',1304),wiki.juice]
+  {id:'non-alcoholic',title:'Non‑Alcoholic Drinks',deck:'Coffee, soda, and spritzed juice',hero:img('',1020),items:[
+    ['Wiener Melange','MUST TRY','Classic Vienna coffeehouse order; close to cappuccino and iconic.','Mild creamy coffee with steamed milk and foam.',img('',1301)],
+    ['Einspänner','MUST TRY','Named for carriage drivers; cream helped keep the coffee warm.','Black coffee topped with whipped cream, served in a glass.',img('',1302)],
+    ['Almdudler','NORMAL','Austrian herbal soda with strong national recognition.','Sweet, fizzy, herbal; like ginger ale meets elderflower.',img('',1303)],
+    ['Apfelsaft gespritzt','NORMAL','Spritzed juice is a normal Austrian everyday drink.','Apple juice cut with sparkling water; refreshing and less sweet.',img('',1304)]
   ]},
-  {id:'alcoholic',title:'Alcoholic Drinks',deck:'Wine, spritzers, and brandy',hero:img('white,wine,glass,restaurant',1030),fallback:wiki.spritzer,items:[
-    ['Grüner Veltliner','MUST TRY','Austria’s flagship white grape and a national wine identity.','Crisp, citrusy, sometimes peppery white wine.',img('white,wine,glass,vineyard',1401),wiki.wine],
-    ['Weißer Spritzer','NORMAL','Wine plus soda water; casual summer and standing-bar drink.','Light, bubbly, and easier than a full glass of wine.',img('wine,spritzer,glass,restaurant',1402),wiki.spritzer],
-    ['Sturm','SEASONAL MUST','Young fermenting wine sold seasonally, especially around autumn.','Cloudy, sweet, fizzy, and deceptively alcoholic.',img('young,wine,glass,grape',1403),wiki.sturm],
-    ['Marillenlikör / Marillenschnaps','NORMAL','Apricot spirits connect to Wachau apricots and digestif culture.','A tiny sweet liqueur or stronger clear brandy after food.',img('apricot,liqueur,glass,bar',1404),wiki.apricotDrink]
+  {id:'alcoholic',title:'Alcoholic Drinks',deck:'Wine, spritzers, and brandy',hero:img('',1030),items:[
+    ['Grüner Veltliner','MUST TRY','Austria’s flagship white grape and a national wine identity.','Crisp, citrusy, sometimes peppery white wine.',img('',1401)],
+    ['Weißer Spritzer','NORMAL','Wine plus soda water; casual summer and standing-bar drink.','Light, bubbly, and easier than a full glass of wine.',img('',1402)],
+    ['Sturm','SEASONAL MUST','Young fermenting wine sold seasonally, especially around autumn.','Cloudy, sweet, fizzy, and deceptively alcoholic.',img('',1403)],
+    ['Marillenlikör / Marillenschnaps','NORMAL','Apricot spirits connect to Wachau apricots and digestif culture.','A tiny sweet liqueur or stronger clear brandy after food.',img('',1404)]
   ]},
-  {id:'desserts',title:'Desserts & Sweets',deck:'Cake, strudel, pancakes, wafers',hero:img('chocolate,cake,dessert,cafe',1040),fallback:wiki.sacher,items:[
-    ['Sachertorte','MUST TRY','19th-century Viennese chocolate cake tied to Sacher and Demel.','Dense chocolate cake with apricot jam and glaze; best with cream.',img('chocolate,cake,cafe,dessert',1501),wiki.sacher],
-    ['Apfelstrudel','MUST TRY','Habsburg-era pastry classic found across Austrian cafés.','Warm apple-cinnamon filling in thin pastry, often with vanilla sauce.',img('apple,strudel,dessert,cafe',1502),wiki.strudel],
-    ['Kaiserschmarrn','MUST TRY','Imperial pancake legend linked to Emperor Franz Joseph.','Shredded caramelized pancake with compote; often big and shareable.',img('pancake,dessert,berries,restaurant',1503),wiki.kaiser],
-    ['Palatschinken','NORMAL','Central European crêpes from Habsburg food culture.','Thin pancakes rolled with jam, curd, apricot, or chocolate.',img('crepe,jam,dessert,cafe',1504),wiki.pal],
-    ['Marillenknödel','SEASONAL MUST','Apricot dumplings tied to Austrian apricot regions like Wachau.','Soft dumpling around apricot, rolled in buttery crumbs.',img('apricot,dumpling,dessert,plate',1505),wiki.apricotDumpling],
-    ['Manner Schnitten','NORMAL','Vienna wafer brand with Stephansdom imagery; souvenir classic.','Crisp hazelnut cream wafers: cheap, portable, and not fancy.',img('wafer,hazelnut,chocolate,dessert',1506),wiki.manner]
+  {id:'desserts',title:'Desserts & Sweets',deck:'Cake, strudel, pancakes, wafers',hero:img('',1040),items:[
+    ['Sachertorte','MUST TRY','19th-century Viennese chocolate cake tied to Sacher and Demel.','Dense chocolate cake with apricot jam and glaze; best with cream.',img('',1501)],
+    ['Apfelstrudel','MUST TRY','Habsburg-era pastry classic found across Austrian cafés.','Warm apple-cinnamon filling in thin pastry, often with vanilla sauce.',img('',1502)],
+    ['Kaiserschmarrn','MUST TRY','Imperial pancake legend linked to Emperor Franz Joseph.','Shredded caramelized pancake with compote; often big and shareable.',img('',1503)],
+    ['Palatschinken','NORMAL','Central European crêpes from Habsburg food culture.','Thin pancakes rolled with jam, curd, apricot, or chocolate.',img('',1504)],
+    ['Marillenknödel','SEASONAL MUST','Apricot dumplings tied to Austrian apricot regions like Wachau.','Soft dumpling around apricot, rolled in buttery crumbs.',img('',1505)],
+    ['Manner Schnitten','NORMAL','Vienna wafer brand with Stephansdom imagery; souvenir classic.','Crisp hazelnut cream wafers: cheap, portable, and not fancy.',img('',1506)]
   ]},
-  {id:'misc',title:'Other Local Bites',deck:'Spreads, boards, quick snacks',hero:img('charcuterie,cheese,board,restaurant',1050),fallback:wiki.board,items:[
-    ['Liptauer','NORMAL','Paprika cheese spread from the old Habsburg/Hungarian sphere.','Tangy spiced spread on bread; good with a snack board.',img('cheese,spread,bread,paprika',1601),wiki.liptauer],
-    ['Brettljause','NORMAL','Rural and heuriger cold board of meats, cheese, and spreads.','Shareable snack plate; filling, casual, and rustic.',img('charcuterie,cheese,board,restaurant',1602),wiki.board],
-    ['Leberkäsesemmel','NORMAL','Meatloaf-style quick bite from bakeries and counters.','Warm slice in a roll with mustard, salty, cheap, and normal.',img('meatloaf,sandwich,roll,streetfood',1603),wiki.leber]
+  {id:'misc',title:'Other Local Bites',deck:'Spreads, boards, quick snacks',hero:img('',1050),items:[
+    ['Liptauer','NORMAL','Paprika cheese spread from the old Habsburg/Hungarian sphere.','Tangy spiced spread on bread; good with a snack board.',img('',1601)],
+    ['Brettljause','NORMAL','Rural and heuriger cold board of meats, cheese, and spreads.','Shareable snack plate; filling, casual, and rustic.',img('',1602)],
+    ['Leberkäsesemmel','NORMAL','Meatloaf-style quick bite from bakeries and counters.','Warm slice in a roll with mustard, salty, cheap, and normal.',img('',1603)]
   ]}
 ];
 const badgeClass=b=>b==='NORMAL'?'normal':b.includes('SEASONAL')?'seasonal':'';
-const nav=()=>`<nav class="nav section-nav" aria-label="Section navigation"><a class="home" href="#top">Menu</a>${sections.map(s=>`<a href="#${s.id}">${s.title}</a>`).join('')}</nav>`;
-const card=i=>`<article class="food"><a class="photo" href="${imageSearch(i[0])}" target="_blank" rel="noopener" aria-label="Search Google Images for ${i[0]}"><img src="${i[4]}" data-fallback="${i[5]}" alt="${i[0]}" loading="lazy"><span class="badge ${badgeClass(i[1])}">${i[1]}</span></a><div class="copy"><h3>${i[0]}</h3><div class="label">Story</div><p>${i[2]}</p><div class="label">What it is</div><p>${i[3]}</p></div></article>`;
+const nav=()=>`<nav class="nav fixed-nav" aria-label="Section navigation"><a class="home" href="#top">Menu</a>${sections.map(s=>`<a href="#${s.id}">${s.title}</a>`).join('')}</nav>`;
+const card=i=>`<article class="food"><a class="photo" href="${imageSearch(i[0])}" target="_blank" rel="noopener" aria-label="Search Google Images for ${i[0]}"><img src="${i[4]}" alt="${i[0]}" loading="lazy"><span class="badge ${badgeClass(i[1])}">${i[1]}</span></a><div class="copy"><h3>${i[0]}</h3><div class="label">Story</div><p>${i[2]}</p><div class="label">What it is</div><p>${i[3]}</p></div></article>`;
+document.body.insertAdjacentHTML('afterbegin',nav());
 document.getElementById('coverArt').style.backgroundImage=`url('${sections[0].hero}')`;
-document.getElementById('menu').innerHTML=sections.map(s=>`<a class="menu-card" href="#${s.id}" aria-label="Open ${s.title} section"><img src="${s.hero}" data-fallback="${s.fallback}" alt=""><div><small>${s.deck}</small><strong>${s.title}</strong><span>${s.items.length} items</span></div><b aria-hidden="true">›</b></a>`).join('');
-document.getElementById('sections').innerHTML=nav()+sections.map(s=>`<section class="food-section" id="${s.id}"><div class="section-top" style="background-image:url('${s.hero}')"><div><div class="eyebrow">Vienna food guide</div><h2>${s.title}</h2><p class="deck">${s.deck}</p></div></div><div class="grid">${s.items.map(card).join('')}</div></section>`).join('')+`<footer class="footer"><a class="more" href="#top">Back to menu</a></footer>`;
-document.querySelectorAll('img[data-fallback]').forEach(el=>el.addEventListener('error',()=>{if(!el.dataset.usedFallback){el.dataset.usedFallback='1';el.src=el.dataset.fallback;}}));
+document.getElementById('menu').innerHTML=sections.map(s=>`<a class="menu-card" href="#${s.id}" aria-label="Open ${s.title} section"><img src="${s.hero}" alt=""><div><small>${s.deck}</small><strong>${s.title}</strong><span>${s.items.length} items</span></div><b aria-hidden="true">›</b></a>`).join('');
+document.getElementById('sections').innerHTML=sections.map(s=>`<section class="food-section" id="${s.id}"><div class="section-top" style="background-image:url('${s.hero}')"><div><div class="eyebrow">Vienna food guide</div><h2>${s.title}</h2><p class="deck">${s.deck}</p></div></div><div class="grid">${s.items.map(card).join('')}</div></section>`).join('')+`<footer class="footer"><a class="more" href="#top">Back to menu</a></footer>`;
 if(location.hash) setTimeout(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}),150);
 </script>
 </body>
