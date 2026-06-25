@@ -20,6 +20,7 @@
 <script>
 let img=(q,n)=>'';
 const imageSearch=name=>`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(name+' Vienna Austrian food')}`;
+const sp=name=>`https://commons.wikimedia.org/wiki/Special:FilePath/${name}`;
 const wiki={
   schnitzel:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Wiener_Schnitzel%21.jpg/960px-Wiener_Schnitzel%21.jpg',
   tafelspitz:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Tafelspitz.jpg/960px-Tafelspitz.jpg',
@@ -38,6 +39,9 @@ const wiki={
   einspanner:'https://upload.wikimedia.org/wikipedia/commons/1/1e/Einspaenner.jpg',
   almdudler:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Almdudler_bottle_and_glass.jpg/960px-Almdudler_bottle_and_glass.jpg',
   juice:'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Apfelsaft_im_Glas.jpg/960px-Apfelsaft_im_Glas.jpg',
+  holunder:sp('Elderflower_cordial.jpg'),
+  sodaZitron:sp('Soda_water_with_lemon.jpg'),
+  himbeer:sp('Raspberry_syrup.jpg'),
   wine:'https://upload.wikimedia.org/wikipedia/commons/3/35/GruenerVeltlinerWeissenkirchen.jpg',
   spritzer:'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Sommerspritzer.jpg/960px-Sommerspritzer.jpg',
   sturm:'https://upload.wikimedia.org/wikipedia/commons/3/3a/Federweisser_im_Glas_%28Baden_2007%29.jpg',
@@ -48,11 +52,14 @@ const wiki={
   pal:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Palatschinken_in_Wien_2.JPG/960px-Palatschinken_in_Wien_2.JPG',
   apricotDumpling:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Heuriger_Zum_Renner_Marillenkn%C3%B6del.jpg/960px-Heuriger_Zum_Renner_Marillenkn%C3%B6del.jpg',
   manner:'https://upload.wikimedia.org/wikipedia/commons/1/1f/Manner_Neapolitaner_%28Swiss_Chocolate_Wafers%29.jpg',
+  punsch:sp('Punschkrapfen.jpg'),
+  buchteln:sp('Buchteln.jpg'),
+  germ:sp('Germkn%C3%B6del.jpg'),
   liptauer:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Liptauer_on_bread_in_Austria.jpg/960px-Liptauer_on_bread_in_Austria.jpg',
   board:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Brettljause_7622.JPG/960px-Brettljause_7622.JPG',
   leber:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Leberkaesesemmel.jpg/960px-Leberkaesesemmel.jpg'
 };
-const exact={1001:wiki.schnitzel,1010:wiki.breakfast,1020:wiki.melange,1030:wiki.spritzer,1040:wiki.sacher,1050:wiki.board,1101:wiki.schnitzel,1102:wiki.tafelspitz,1103:wiki.fiaker,1104:wiki.backhendl,1105:wiki.zwiebel,1106:wiki.spaetzle,1107:wiki.krainer,1108:wiki.soup,1109:wiki.liver,1201:wiki.breakfast,1202:wiki.semmel,1203:wiki.kipferl,1204:wiki.topfen,1301:wiki.melange,1302:wiki.einspanner,1303:wiki.almdudler,1304:wiki.juice,1401:wiki.wine,1402:wiki.spritzer,1403:wiki.sturm,1404:wiki.apricotDrink,1501:wiki.sacher,1502:wiki.strudel,1503:wiki.kaiser,1504:wiki.pal,1505:wiki.apricotDumpling,1506:wiki.manner,1601:wiki.liptauer,1602:wiki.board,1603:wiki.leber};
+const exact={1001:wiki.schnitzel,1010:wiki.breakfast,1020:wiki.melange,1030:wiki.spritzer,1040:wiki.sacher,1050:wiki.board,1101:wiki.schnitzel,1102:wiki.tafelspitz,1103:wiki.fiaker,1104:wiki.backhendl,1105:wiki.zwiebel,1106:wiki.spaetzle,1107:wiki.krainer,1108:wiki.soup,1109:wiki.liver,1201:wiki.breakfast,1202:wiki.semmel,1203:wiki.kipferl,1204:wiki.topfen,1301:wiki.melange,1302:wiki.einspanner,1303:wiki.almdudler,1304:wiki.juice,1305:wiki.holunder,1306:wiki.sodaZitron,1307:wiki.himbeer,1401:wiki.wine,1402:wiki.spritzer,1403:wiki.sturm,1404:wiki.apricotDrink,1501:wiki.sacher,1502:wiki.strudel,1503:wiki.kaiser,1504:wiki.pal,1505:wiki.apricotDumpling,1506:wiki.manner,1507:wiki.punsch,1508:wiki.buchteln,1509:wiki.germ,1601:wiki.liptauer,1602:wiki.board,1603:wiki.leber};
 img=(q,n)=>exact[n]||wiki.schnitzel;
 const sections=[
   {id:'lunch-dinner',title:'Lunch & Dinner',deck:'Cutlets, soups, stews, sausages',hero:img('',1001),items:[
@@ -72,11 +79,14 @@ const sections=[
     ['Kipferl','NORMAL','Crescent pastry from Central European baking tradition.','Buttery or sweet crescent, lighter than a full dessert.',img('',1203)],
     ['Topfengolatsche','NORMAL','Viennese/Central European pastry with quark cheese filling.','Square folded pastry with a sweet, tangy cheese center.',img('',1204)]
   ]},
-  {id:'non-alcoholic',title:'Non‑Alcoholic Drinks',deck:'Coffee, soda, and spritzed juice',hero:img('',1020),items:[
+  {id:'non-alcoholic',title:'Non‑Alcoholic Drinks',deck:'Coffee, soda, juice, and Austrian soft drinks',hero:img('',1020),items:[
     ['Wiener Melange','MUST TRY','Classic Vienna coffeehouse order; close to cappuccino and iconic.','Mild creamy coffee with steamed milk and foam.',img('',1301)],
     ['Einspänner','MUST TRY','Named for carriage drivers; cream helped keep the coffee warm.','Black coffee topped with whipped cream, served in a glass.',img('',1302)],
     ['Almdudler','NORMAL','Austrian herbal soda with strong national recognition.','Sweet, fizzy, herbal; like ginger ale meets elderflower.',img('',1303)],
-    ['Apfelsaft gespritzt','NORMAL','Spritzed juice is a normal Austrian everyday drink.','Apple juice cut with sparkling water; refreshing and less sweet.',img('',1304)]
+    ['Apfelsaft gespritzt','NORMAL','Spritzed juice is a normal Austrian everyday drink.','Apple juice cut with sparkling water; refreshing and less sweet.',img('',1304)],
+    ['Holundersaft gespritzt','NORMAL','Elderflower syrup with sparkling water is common in Austrian cafés.','Light, floral, sweet, and refreshing without being coffee.',img('',1305)],
+    ['Soda Zitron','NORMAL','Simple Austrian café drink when you want something light.','Sparkling water with lemon, usually cheap and very refreshing.',img('',1306)],
+    ['Himbeerkracherl','NORMAL','Raspberry soda is an old-school Austrian soft drink flavor.','Bright red, sweet raspberry soda; more nostalgic than fancy.',img('',1307)]
   ]},
   {id:'alcoholic',title:'Alcoholic Drinks',deck:'Wine, spritzers, and brandy',hero:img('',1030),items:[
     ['Grüner Veltliner','MUST TRY','Austria’s flagship white grape and a national wine identity.','Crisp, citrusy, sometimes peppery white wine.',img('',1401)],
@@ -84,13 +94,16 @@ const sections=[
     ['Sturm','SEASONAL MUST','Young fermenting wine sold seasonally, especially around autumn.','Cloudy, sweet, fizzy, and deceptively alcoholic.',img('',1403)],
     ['Marillenlikör / Marillenschnaps','NORMAL','Apricot spirits connect to Wachau apricots and digestif culture.','A tiny sweet liqueur or stronger clear brandy after food.',img('',1404)]
   ]},
-  {id:'desserts',title:'Desserts & Sweets',deck:'Cake, strudel, pancakes, wafers',hero:img('',1040),items:[
+  {id:'desserts',title:'Desserts & Sweets',deck:'Cake, strudel, dumplings, pancakes, wafers',hero:img('',1040),items:[
     ['Sachertorte','MUST TRY','19th-century Viennese chocolate cake tied to Sacher and Demel.','Dense chocolate cake with apricot jam and glaze; best with cream.',img('',1501)],
     ['Apfelstrudel','MUST TRY','Habsburg-era pastry classic found across Austrian cafés.','Warm apple-cinnamon filling in thin pastry, often with vanilla sauce.',img('',1502)],
     ['Kaiserschmarrn','MUST TRY','Imperial pancake legend linked to Emperor Franz Joseph.','Shredded caramelized pancake with compote; often big and shareable.',img('',1503)],
     ['Palatschinken','NORMAL','Central European crêpes from Habsburg food culture.','Thin pancakes rolled with jam, curd, apricot, or chocolate.',img('',1504)],
     ['Marillenknödel','SEASONAL MUST','Apricot dumplings tied to Austrian apricot regions like Wachau.','Soft dumpling around apricot, rolled in buttery crumbs.',img('',1505)],
-    ['Manner Schnitten','NORMAL','Vienna wafer brand with Stephansdom imagery; souvenir classic.','Crisp hazelnut cream wafers: cheap, portable, and not fancy.',img('',1506)]
+    ['Manner Schnitten','NORMAL','Vienna wafer brand with Stephansdom imagery; souvenir classic.','Crisp hazelnut cream wafers: cheap, portable, and not fancy.',img('',1506)],
+    ['Punschkrapfen','NORMAL','Bright pink Austrian pastry-shop cube with a very local look.','Small sponge cake filled with jam/chocolate flavors and punch icing.',img('',1507)],
+    ['Buchteln','NORMAL','Soft pull-apart sweet rolls common around Austrian and Bohemian baking.','Yeasted buns often filled with jam and served warm.',img('',1508)],
+    ['Germknödel','NORMAL','Austrian ski-hut style sweet dumpling, heavy but memorable.','Large yeast dumpling with plum filling, poppy sugar, and vanilla sauce.',img('',1509)]
   ]},
   {id:'misc',title:'Other Local Bites',deck:'Spreads, boards, quick snacks',hero:img('',1050),items:[
     ['Liptauer','NORMAL','Paprika cheese spread from the old Habsburg/Hungarian sphere.','Tangy spiced spread on bread; good with a snack board.',img('',1601)],
