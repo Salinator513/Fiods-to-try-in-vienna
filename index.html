@@ -105,7 +105,23 @@ document.body.insertAdjacentHTML('afterbegin',nav());
 document.getElementById('coverArt').style.backgroundImage=`url('${sections[0].hero}')`;
 document.getElementById('menu').innerHTML=sections.map(s=>`<a class="menu-card" href="#${s.id}" aria-label="Open ${s.title} section"><img src="${s.hero}" alt=""><div><small>${s.deck}</small><strong>${s.title}</strong><span>${s.items.length} items</span></div><b aria-hidden="true">›</b></a>`).join('');
 document.getElementById('sections').innerHTML=sections.map(s=>`<section class="food-section" id="${s.id}"><div class="section-top" style="background-image:url('${s.hero}')"><div><div class="eyebrow">Vienna food guide</div><h2>${s.title}</h2><p class="deck">${s.deck}</p></div></div><div class="grid">${s.items.map(card).join('')}</div></section>`).join('')+`<footer class="footer"><a class="more" href="#top">Back to menu</a></footer>`;
-if(location.hash) setTimeout(()=>document.querySelector(location.hash)?.scrollIntoView({block:'start'}),150);
+let currentActive='';
+function updateActiveNav(){
+  let active='top';
+  const trigger=Math.min(window.innerHeight*.34,260);
+  sections.forEach(s=>{
+    const el=document.getElementById(s.id);
+    if(el && el.getBoundingClientRect().top<=trigger) active=s.id;
+  });
+  if(active===currentActive) return;
+  currentActive=active;
+  document.querySelectorAll('.fixed-nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')===`#${active}`));
+  document.querySelector('.fixed-nav a.active')?.scrollIntoView({inline:'center',block:'nearest'});
+}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+window.addEventListener('resize',updateActiveNav);
+updateActiveNav();
+if(location.hash) setTimeout(()=>{document.querySelector(location.hash)?.scrollIntoView({block:'start'}); updateActiveNav();},150);
 </script>
 </body>
 </html>
